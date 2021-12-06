@@ -53,7 +53,7 @@ class HsvSerializer(serializers.Serializer):
         return value
 
 class ColorHarmonySerializer(serializers.Serializer):
-    harmony = serializers.RegexField(regex='^monochromatic$')
+    harmony = serializers.RegexField(regex='^monochromatic$|^complementary$')
     color = serializers.ListField(min_length=3, max_length=3,
                                   child=serializers.FloatField(max_value=360, min_value=0))
     representation = serializers.RegexField(regex='^hsv$')

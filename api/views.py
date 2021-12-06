@@ -76,9 +76,18 @@ def convert_color(request, format=None):
 def color_harmony(request, format=None):
     color_harmony_inst = ColorHarmonySerializer(data=request.data)
     if color_harmony_inst.is_valid():
-        query = Color(**request.data)
-        harmony_color_dict = query.make_harmony_colors()
-        return Response({"representation": "hsv",
-                        **harmony_color_dict})
+        if request.data['harmony'] == 'monochromatic':
+            query = Color(**request.data)
+            harmony_color_dict = query.make_harmony_colors()
+            return Response({"representation": "hsv",
+                             **harmony_color_dict})
+        elif request.data['harmony'] == 'complementary':
+            query = Color(**request.data)
+            harmony_color_dict = query.find_complementary_color_hue()
+            return Response({
+                'representation': "hsv",
+                "color": query.color,
+                **harmony_color_dict
+            })
     else:
         return Response({'error': 'Invalid data.'}, status.HTTP_400_BAD_REQUEST)

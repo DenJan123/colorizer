@@ -252,11 +252,8 @@ class ColorizerTest(DjangoTest):
             return CheckResult.wrong(self.msg_500 + ". path_info: /modify-color/")
 
         if response.status_code == 400:
-            try:
-                if response.json() == {"error": "Invalid data."}:
-                    return CheckResult.correct()
-            except json.decoder.JSONDecodeError:
-                print('JSON is not valid')
+            if response.json() == {"error": "Invalid data."}:
+                return CheckResult.correct()
             return CheckResult.wrong(self.msg_400_expected + ". path_info: /modify-color/")
 
         msg = f"""received HTTP status code: {response.status_code},
