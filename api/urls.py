@@ -6,6 +6,7 @@ app_name = "api"
 
 urlpatterns = [
     path("modify-color/", views.modify_color),
-    path("convert-color/", views.convert_color)
+    path("convert-color/", views.convert_color),
+    path("color-harmony/", views.color_harmony)
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
